@@ -1,7 +1,10 @@
 package com.hendisantika;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDateTime;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
  * To change this template use File | Settings | File Templates.
  */
 @RestController
+@Slf4j
 public class TestController {
 
     @GetMapping("/")
     public String test() {
-        return "success";
+        log.info("Spring Boot Keycloak Resource Server Sample " + LocalDateTime.now());
+        return "Spring Boot Keycloak Resource Server Sample  " + LocalDateTime.now();
     }
 }
