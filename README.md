@@ -85,5 +85,24 @@ to access OAuth2 protected “resource servers”.
 Our keycloak set up is now complete.
 
 **STEP 6**: Get OAuth2 configuration details
+Now you need to know what the “resource server” url is.
+
+what the “access token url” (to get access token) is.
+
+You can get this by hitting this url:
+
+http://localhost:8080/realms/PowerRanger/.well-known/openid-configuration
+
+Notice that you need to use the realm name which you created here.
+
+I have used “PowerRanger”
+
+Notice the “issuer” .This is the resource server url. If you want to protect your microservice you need to use this url.
+
+Notice the “token_endpoint” url . This is the url to fetch tokens if you are an OAuth2 client.
 
 **STEP 7**: Test
+
+Now let’s test by creating a simple microservice in Spring Boot and protecting it with OAuth2.
+
+Also we will try to hit the service using the client credentials we created in STEP 5.
