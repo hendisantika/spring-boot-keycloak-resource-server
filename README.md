@@ -37,6 +37,18 @@ To run keycloak first unzip the folder downloaded in step 1.
 
 Go to bin folder and run the command:
 
+MacOs / Linux
+
+```shell
+bin/kc.sh start-dev
+```
+
+Windows
+
+```shell
+bin/kc.bat start-dev
+```
+
 This will start keycloak server at port 8080.
 
 Launch http://localhost:8080
