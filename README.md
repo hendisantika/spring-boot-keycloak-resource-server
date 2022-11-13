@@ -53,6 +53,8 @@ This will start keycloak server at port 8080.
 
 Launch http://localhost:8080
 
+![Home Page](img/image-1.png "Home Page")
+
 Your keycloak server is up and running now.
 
 **STEP 3**: Create an admin user
@@ -64,6 +66,8 @@ Then click on “Administration Console” link.
 
 A login page will be displayed:
 
+![Login Page](img/image-2.png "Login Page")
+
 Login using your admin credentials.
 
 **STEP 4**: Create a realm
@@ -72,8 +76,16 @@ Access Management) providers.
 
 You can create a new realm by hovering over Master drop down menu on the left:
 
+![Realm Page](img/image-5.png "Realm Page")
+
+![Realm Page](img/image-6.png "Realm Page")
+
 **STEP 5**: Create an OAuth2 client
 Once you create a realm, go to Client on the left pane and create a new client:
+
+![Realm Page](img/image-7.png "Realm Page")
+
+![Realm Page](img/image-8.png "Realm Page")
 
 Once you create the client you will be shown a lot of configuration options.
 
@@ -87,9 +99,13 @@ ii) Switch ON “Service Accounts Enabled”
 
 iii) Switch OFF other modes (Standard Flow enabled ,Direct Access Grants Enabled etc)
 
+![Realm Page](img/image-9.png "Realm Page")
+
 Click on “save”.
 
 Once you do this your client secret is automatically generated:
+
+![Realm Page](img/image-16.png "Realm Page")
 
 You need to use this secret and you client id (“myclient” in the above case) to generate access token which will be used
 to access OAuth2 protected “resource servers”.
@@ -108,6 +124,8 @@ http://localhost:8080/realms/PowerRanger/.well-known/openid-configuration
 Notice that you need to use the realm name which you created here.
 
 I have used “PowerRanger”
+
+![Realm Page](img/image-3.png "Realm Page")
 
 Notice the “issuer” .This is the resource server url. If you want to protect your microservice you need to use this url.
 
