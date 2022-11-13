@@ -136,3 +136,13 @@ Notice the “token_endpoint” url . This is the url to fetch tokens if you are
 Now let’s test by creating a simple microservice in Spring Boot and protecting it with OAuth2.
 
 Also we will try to hit the service using the client credentials we created in STEP 5.
+
+Get Token 1
+
+![Get Token 1](img/token1.png "Get Token 1")
+
+![Get Token 2](img/token2.png "Get Token 2")
+
+![Get Token 3](img/token3.png "Get Token 3")
+
+![Get Token 4](img/token4.png "Get Token 4")
