@@ -25,4 +25,10 @@ public class TestController {
         log.info("Spring Boot Keycloak Resource Server Sample " + LocalDateTime.now());
         return "Spring Boot Keycloak Resource Server Sample  " + LocalDateTime.now();
     }
+
+    @GetMapping("/test1")
+    public String test2() {
+        log.info("Spring Boot Keycloak Resource Server Sample 1 " + LocalDateTime.now());
+        return "Spring Boot Keycloak Resource Server Sample 1 " + LocalDateTime.now();
+    }
 }
