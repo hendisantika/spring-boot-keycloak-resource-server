@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: db_mysql
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=Naruto2022!
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=Pa55word
+    ports:
+      - "3306:3306"
+    volumes:
+      - .docker/db/mysql:/var/lib/mysql
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:19.0.1
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=mysql
+      - KC_DB_USERNAME=admin
+      - KC_DB_PASSWORD=Pa55word
+      - KC_DB_URL_HOST=db
+      - KC_DB_URL_PORT=3306
+      - KC_DB_SCHEMA=keycloak
+    ports:
+      - "8080:8080"
+    command: start-dev
+    depends_on:
+      - db

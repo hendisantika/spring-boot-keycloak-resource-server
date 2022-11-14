@@ -1,0 +1,47 @@
+version: "3.9"
+networks:
+  backend:
+  frontend:
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: kerri
+      DB_ADDR: mysql
+      DB_USER: keycloak
+      DB_PASSWORD: keycloak
+      DB_PORT: "3306"
+      DB_DATABASE: keycloak
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: Pa55w0rd
+      KEYCLOAK_IMPORT: /tmp/import-realm.json
+    command:
+      - start-dev
+      - --import-realm
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./keycloak:/tmp
+    networks:
+      - backend
+      - frontend
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: naruto
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: keycloak
+      MYSQL_DATABASE: keycloak
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8081:8080"
+    networks:
+      - backend
+      - frontend
