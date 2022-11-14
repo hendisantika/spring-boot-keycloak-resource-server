@@ -146,3 +146,79 @@ Get Token 1
 ![Get Token 3](img/token3.png "Get Token 3")
 
 ![Get Token 4](img/token4.png "Get Token 4")
+
+### Run Keycloak Using Docker
+
+The Keycloak Docker Image for is available in this repository:  quay.io/repository/keycloak/keycloak . You can use it in
+two different flavours:
+
+* Keycloak built on Quarkus: This is the latest and recommended distribution for Keycloak which uses Quarkus as Runtime
+  environment
+* Keycloak legacy: This distribution uses WildFly as Runtime engine. This distribution will not receive further updates
+  so it’s now a legacy distribution
+
+That being said, let’s see how to start Keycloak on Docker in both distributions.
+
+Keycloak with Docker powered by Quarkus
+Firstly, it is worth mentioning that you can use either the **docker** command or **podman** to achieve the same
+results. We will use docker in this section.
+
+To pull the latest Docker Image of Keycloak you can run from the Command Line:
+`docker pull  quay.io/keycloak/keycloak:latest`
+
+On the other hand, you can pull and start Keycloak with a single command. Here is how to start it in development mode:
+
+```shell
+docker run --name keycloak_dev -p 8080:8080 \
+        -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin \
+        quay.io/keycloak/keycloak:latest \
+        start-dev
+```
+
+if you want to start Keycloak on a different server port:
+
+```shell
+docker run --name keycloak_dev -p 8180:8180 \
+        -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin \
+        quay.io/keycloak/keycloak:latest \
+        start-dev --http-port=8180
+```
+
+Then, to start Keycloak in production mode with PostgreSQL as database, use the following example command:
+
+```shell
+docker run --name keycloak_auto_build -p 8080:8080 \
+        -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin \
+        quay.io/keycloak/keycloak:latest \
+        start \
+        --auto-build \
+        --db=postgres --features=token-exchange \
+        --db-url=jdbc:postgresql://localhost:5432/keycloak --db-username=postgres --db-password=postgres \
+        --https-key-store-file=server.keystore --https-key-store-password=secret
+```
+
+Update the Database and Keystore settings accordingly.
+
+Finally, in order to **import an existing Realm** when using Keycloak Docker Image, you have to use the **
+–import-realm**
+option at startup. For example, with docker-compose the following file will import the Realm available in the file **
+/home/keycloak/realm.json**:
+
+```shell
+services:
+  auth:
+    image: quay.io/keycloak/keycloak:20.0.1
+    ports:
+      - "8080:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin 
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command: 
+      - start-dev 
+      - --import-realm
+    volumes:
+      - /home/keycloak/realm.json:/opt/keycloak/data/import/realm.json
+```
+
+To start Keycloak, simply run:
+`docker-compose up`
