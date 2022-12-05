@@ -7,3 +7,10 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/PowerRanger
+keycloak:
+  realm: PowerRanger
+  auth-server-url: http://localhost:8080
+  resource: labs-client
+  #  credentials.secret: OvJPLSjCyW9x9FJI5AzkfkOameApY04N
+  credentials.secret: bf0de119-8bba-43e6-b24b-de4dbbc1ed06
+  use-resource-role-mappings: true
