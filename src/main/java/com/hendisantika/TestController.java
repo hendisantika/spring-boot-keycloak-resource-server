@@ -1,10 +1,13 @@
 package com.hendisantika;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,7 +23,7 @@ import java.time.LocalDateTime;
 @Slf4j
 public class TestController {
 
-    @GetMapping("/")
+    @GetMapping("/test2")
     public String test() {
         log.info("Spring Boot Keycloak Resource Server Sample " + LocalDateTime.now());
         return "Spring Boot Keycloak Resource Server Sample  " + LocalDateTime.now();
@@ -30,5 +33,17 @@ public class TestController {
     public String test2() {
         log.info("Spring Boot Keycloak Resource Server Sample 1 " + LocalDateTime.now());
         return "Spring Boot Keycloak Resource Server Sample 1 " + LocalDateTime.now();
+    }
+
+    /// how to get jwt details ????? (token claims)
+    @GetMapping("/details")
+    public Map<String, Object> getUserDetails(@AuthenticationPrincipal Jwt jwt) {
+        return Map.of(
+                "subject", jwt.getSubject(),
+                "username", jwt.getClaimAsString("preferred_username"),
+                "email", jwt.getClaimAsString("email"),
+                "firstName", jwt.getClaimAsString("given_name"),
+                "lastName", jwt.getClaimAsString("family_name")
+        );
     }
 }
